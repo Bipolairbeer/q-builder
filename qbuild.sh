@@ -11,9 +11,12 @@
 # --> sudo ./qbuild.sh
 #################################################################################################################
 
+sudo chmod 777 -R q-builder/
+
 yes | sudo dnf install -y wget make git qubes-gpg-split createrepo rpm-build rpm-sign make python3-sh rpmdevtools rpm-sign dialog perl-open python3-pyyaml perl-Digest-MD5 perl-Digest-SHA 
 
-sudo git clone https://github.com/QubesOS/qubes-secpack.git
+cd
+sudo git clone git://github.com/QubesOS/qubes-secpack.git 
 gpg --import qubes-secpack/keys/*/*
 cat<<-EOF|gpg --command-fd 0 --edit-key 36879494
 	fpr
@@ -31,7 +34,7 @@ gpg --verify canary-001-2015.txt.sig.joanna canary-001-2015.txt
 gpg --verify canary-001-2015.txt.sig.marmarek canary-001-2015.txt
 
 cd
-sudo git clone https://github.com/QubesOS/qubes-builder.git 
+sudo git clone git://github.com/QubesOS/qubes-builder.git 
 
 cd
 sudo chmod 777 -R qubes-builder/
