@@ -5,7 +5,7 @@
 #
 # Open a terminal 
 # --> sudo dnf update && sudo dnf upgrade
-# --> sudo git clone git://github.com/Bipolairbeer/q-builder /home/user/q-builder
+# --> sudo git clone git://github.com/Bipolairbeer/q-builder
 # --> sudo chmod +x /home/user/q-builder/qbuild.sh
 # --> cd q-builder/
 # --> sudo ./qbuild.sh
@@ -13,7 +13,7 @@
 
 yes | sudo dnf install -y wget make git qubes-gpg-split createrepo rpm-build rpm-sign make python3-sh rpmdevtools rpm-sign dialog perl-open python3-pyyaml perl-Digest-MD5 perl-Digest-SHA 
 
-sudo git clone "https://github.com/QubesOS/qubes-secpack.git" /home/user/qubes-secpack
+sudo git clone "https://github.com/QubesOS/qubes-secpack.git" 
 gpg --import qubes-secpack/keys/*/*
 cat<<-EOF|gpg --command-fd 0 --edit-key 36879494
 	fpr
@@ -31,7 +31,10 @@ gpg --verify canary-001-2015.txt.sig.joanna canary-001-2015.txt
 gpg --verify canary-001-2015.txt.sig.marmarek canary-001-2015.txt
 
 cd
-sudo git clone "https://github.com/QubesOS/qubes-builder.git" /home/user/qubes-builder
+sudo git clone "https://github.com/QubesOS/qubes-builder.git" 
+
+cd
+sudo chmod 777 -R qubes-builder/
 
 cd qubes-builder/
 git tag -v `git describe`
@@ -46,15 +49,15 @@ cp ~/.gnupg/trustdb.gpg "$GNUPGHOME"
 chmod --recursive 700 "$GNUPGHOME"
 
 cd
-sudo git clone "https://github.com/Bipolairbeer/q-builder.git" /home/user/q-builder
-
-cd
 sudo rm rf /home/user/qubes-builder/builder.conf
 sudo cp -r /home/user/q-builder/builder.conf /home/user/qubes-builder/builder.conf
 
 cd qubes-builder/
+
 sudo make install-deps
 sudo make get-sources
 sudo make qubes
 sudo make sign-all
 sudo make iso
+
+# READY
